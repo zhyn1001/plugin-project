@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <test-toast ref="toast"></test-toast>
+        <calendar-test></calendar-test>
     </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
     name: "Home",
     components: {},
     created(){
-        console.log(this.$msg)
+        
     }
 };
 </script>

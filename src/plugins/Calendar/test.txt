@@ -17,11 +17,15 @@
             <tbody id="tbody">
                 <tr v-for="(item, index) in list" :key="index">
                     <td v-for="child in item" :key="child.day">
-                        <div class="calendar__td__cell">
-                            <div class="calendar__cell_day">{{child.day}}</div>
-
-                        </div>
-                        
+                        <div>{{child.day}}</div>
+                        <template v-if="child.list && child.list.length>0">
+                            <div v-for="(subItem, index) in child.list" :key="index+'t'">
+                                <div>{{subItem.teacherName}}</div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div style="height:80px;"></div>
+                        </template>
                     </td>
                 </tr>
                 <slot name=""></slot>
@@ -66,15 +70,15 @@ export default {
         },
         format(date){
             let res = calendar.updateCalendar(date)
-            // let dateList = this.getData(data.data)
-            // for(let i=0;i<res.length;i++) {
-            //     for(let j=0;j<dateList.length;j++) {
-            //         if(res[i].date === dateList[j].date) {
-            //             res[i].weekNum = dateList[j].weekNum
-            //             res[i].list = dateList[j].list
-            //         }
-            //     }
-            // }
+            let dateList = this.getData(data.data)
+            for(let i=0;i<res.length;i++) {
+                for(let j=0;j<dateList.length;j++) {
+                    if(res[i].date === dateList[j].date) {
+                        res[i].weekNum = dateList[j].weekNum
+                        res[i].list = dateList[j].list
+                    }
+                }
+            }
             let _res = []
             let arr = []
             for(var m=0;m<=res.length;m++){
@@ -104,17 +108,11 @@ export default {
         .Calendar__table
             width 100%
             border-collapse collapse
-            border-spacing 0
             tr
                 th
                     height 25px
                     color #b2b2b2
                 td, th
                     border 1px solid #b2b2b2
-                    padding 0
-            .calendar__td__cell
-                min-height 80px
-                .calendar__cell_day
-                    test-align right
 
 </style>
