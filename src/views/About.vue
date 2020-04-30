@@ -1,5 +1,5 @@
 <template>
-    <div class="about" v-model="value">
+    <div class="about">
         <el-calendar v-model="value">
             <template slot="dateCell" slot-scope="{date, data}" >
                 <div class="content_box">
